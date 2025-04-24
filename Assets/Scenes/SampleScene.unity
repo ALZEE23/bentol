@@ -739,8 +739,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 459086534}
+  fusionUiAnimator: {fileID: 0}
   click: 0
   isFusion: 0
+  isButton: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1592,8 +1594,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 509498030}
+  fusionUiAnimator: {fileID: 1996823607}
   click: 0
   isFusion: 0
+  isButton: 1
 --- !u!1 &620452013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2190,8 +2194,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1996823607}
+  fusionUiAnimator: {fileID: 0}
   click: 0
   isFusion: 0
+  isButton: 0
 --- !u!1 &884935968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2890,8 +2896,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 151950582}
+  fusionUiAnimator: {fileID: 0}
   click: 0
   isFusion: 0
+  isButton: 0
 --- !u!1 &1336193628 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cb0de694d144fe6e69ec472e4e36ea77,
@@ -4440,7 +4448,7 @@ MonoBehaviour:
   selectedForFusion: []
   fusionUiAnimator: {fileID: 1996823607}
   inventoryUi: {fileID: 573731628}
-  buttonUi: {fileID: 0}
+  buttonUi: {fileID: 573731628}
   isFusion: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

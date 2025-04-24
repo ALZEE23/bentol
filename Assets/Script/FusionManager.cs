@@ -32,6 +32,10 @@ public class FusionManager : MonoBehaviour
             buttonUi.isFusion = isFusion;
         }
     }
+    public bool IsCanFuse()
+    {
+        return selectedForFusion.Count == 2;
+    }
 
     public void SelectItem(PeletItem item)
     {
@@ -45,7 +49,7 @@ public class FusionManager : MonoBehaviour
 
     public void FuseItems()
     {
-        // logika gabung bisa dari kombinasi ID atau nama
+        
         var fusedItem = new PeletItem();
         fusedItem.itemName = "Pelet Gabungan";
         fusedItem.itemID = 99;
@@ -55,7 +59,7 @@ public class FusionManager : MonoBehaviour
         InventoryManager.Instance.AddItem(fusedItem);
 
         selectedForFusion.Clear();
-        // update UI
+        
     }
 }
 

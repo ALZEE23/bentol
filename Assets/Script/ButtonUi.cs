@@ -6,8 +6,10 @@ public class ButtonUi : MonoBehaviour
 {
     // Start is called before the first frame update
     public Animator animator;
+    public Animator fusionUiAnimator;
     public int click = 0;
     public bool isFusion;
+    public bool isButton;
 
     void Start()
     {
@@ -17,7 +19,10 @@ public class ButtonUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        animator.SetBool("isFusion", isFusion);
+        if (isButton == true)
+        {
+            fusionUiAnimator.SetBool("isFusion", isFusion);
+        }
     }
     
     public void PlayAnimationInventory()
@@ -26,15 +31,22 @@ public class ButtonUi : MonoBehaviour
         if (click % 2 == 0)
         {
             animator.SetBool("isInventory", false);
-        //    if (isFusion == true)
-        //     {
-        //         FusionManager.Instance.isFusion = false;
-        //         Debug.Log(FusionManager.Instance.isFusion);
-        //     }
+           if (isFusion == true)
+            {
+                FusionManager.Instance.isFusion = false;
+                isFusion = false;
+                Debug.Log(FusionManager.Instance.isFusion);
+            }
         }
         else
         {
             animator.SetBool("isInventory", true);
+            if(FusionManager.Instance.IsCanFuse() == true)
+            {
+                FusionManager.Instance.isFusion = true;
+                isFusion = true;
+                Debug.Log(FusionManager.Instance.isFusion);
+            }
         }
     }
 
