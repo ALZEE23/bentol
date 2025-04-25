@@ -5,9 +5,10 @@ using UnityEngine;
 public class FusionManager : MonoBehaviour
 {
     public List<PeletItem> selectedForFusion = new List<PeletItem>();
-    public List<FishData> fishDatabase; 
+    public List<FishData> fishDatabase;
 
     public Animator fusionUiAnimator;
+    public Animator playerAnimator;
     public int SelectedCount => selectedForFusion.Count;
     public static FusionManager Instance;
     public ButtonUi inventoryUi;
@@ -36,7 +37,7 @@ public class FusionManager : MonoBehaviour
             buttonUi.isFusion = isFusion;
         }
 
-        
+
     }
     public bool IsCanFuse()
     {
@@ -68,6 +69,7 @@ public class FusionManager : MonoBehaviour
 
     public void FuseItems()
     {
+        playerAnimator.SetTrigger("mulai_mancing");
         int id1 = selectedForFusion[0].itemID;
         int id2 = selectedForFusion[1].itemID;
 
@@ -86,9 +88,12 @@ public class FusionManager : MonoBehaviour
         if (matchedFish != null)
         {
             Debug.Log("Jackpot! Dapat ikan: " + matchedFish.fishName);
-            // Di sini kamu bisa munculin UI hasil ikan atau langsung mancing
-            // Contoh:
-            SpawnIkan(matchedFish.fishName);
+            playerAnimator.SetTrigger("dapet_ikan");
+            QuickTimeEvent qte = FindObjectOfType<QuickTimeEvent>();
+            if (qte != null)
+            {
+                qte.StartQTE(matchedFish);
+            }
         }
         else
         {
@@ -96,6 +101,7 @@ public class FusionManager : MonoBehaviour
             string randomFish = GetRandomFish();
             SpawnIkan(randomFish);
         }
+
 
         InventoryManager.Instance.RemoveItem(selectedForFusion[0]);
         InventoryManager.Instance.RemoveItem(selectedForFusion[1]);
@@ -117,7 +123,27 @@ public class FusionManager : MonoBehaviour
         Debug.Log("Ikan yang didapat: " + fishName);
     }
 
+    public void DeselectItem(PeletItem item)
+    {
+        if (!selectedForFusion.Contains(item)) return;
+
+        selectedForFusion.Remove(item);
+        Debug.Log("Item Dihapus: " + item.itemName);
+
+        for (int i = 0; i < slot.Count; i++)
+        {
+            if (i < selectedForFusion.Count)
+            {
+                slot[i].SetItemData(selectedForFusion[i]);
+            }
+            else
+            {
+                slot[i].ClearSlot();
+            }
+        }
+
 
 
 }
 
+}

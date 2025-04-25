@@ -6,7 +6,7 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance;
     public List<PeletItem> peletInventory = new List<PeletItem>();
-    public int maxSlots = 2;
+    public int maxSlots = 3;
 
     public List<InventoryUi> slot = new List<InventoryUi>();
 

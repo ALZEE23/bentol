@@ -11,6 +11,7 @@ public class InventoryUi : MonoBehaviour, IPointerClickHandler
     private bool isSelected = false;
 
     public bool isFusion;
+    public int click;
 
     public void SetItemData(PeletItem item)
     {
@@ -35,16 +36,26 @@ public class InventoryUi : MonoBehaviour, IPointerClickHandler
         FusionManager fusionManager = FusionManager.Instance;
         if (itemData == null) return;
 
-        if (isSelected || fusionManager.SelectedCount >= 2)
+
+        if (isSelected)
+        {
+            isSelected = false;
+            image.color = Color.white;
+            fusionManager.DeselectItem(itemData);
+            click++;
+            return;
+        }
+
+
+        if (fusionManager.SelectedCount >= 2)
         {
             Debug.Log("Tidak bisa memilih item lagi.");
             return;
         }
 
+        click++;
         isSelected = true;
         fusionManager.SelectItem(itemData);
-
-        // Tampilkan status visual
         image.color = Color.green;
     }
 
