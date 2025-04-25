@@ -10,6 +10,8 @@ public class InventoryUi : MonoBehaviour, IPointerClickHandler
     public Image image;
     private bool isSelected = false;
 
+    public bool isFusion;
+
     public void SetItemData(PeletItem item)
     {
         itemData = item;
@@ -25,6 +27,11 @@ public class InventoryUi : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (isFusion)
+        {
+            Debug.Log("Item fusion dipilih: " + itemData.itemName);
+            return;
+        }
         FusionManager fusionManager = FusionManager.Instance;
         if (itemData == null) return;
 

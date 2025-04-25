@@ -8,6 +8,12 @@ public class PeletObject : MonoBehaviour
 
     public void OnClick()
     {
+        if (itemData == null)
+        {
+            Debug.LogError("ItemData di PeletObject masih NULL!");
+            return;
+        }
+
         bool success = InventoryManager.Instance.AddItem(itemData);
         if (success)
         {
@@ -18,4 +24,5 @@ public class PeletObject : MonoBehaviour
             Debug.Log("Inventory penuh!");
         }
     }
+
 }

@@ -12,6 +12,8 @@ public class FusionManager : MonoBehaviour
     public static FusionManager Instance;
     public ButtonUi inventoryUi;
     public ButtonUi buttonUi;
+
+    public List<InventoryUi> slot;
     public bool isFusion;
     private void Awake()
     {
@@ -33,6 +35,8 @@ public class FusionManager : MonoBehaviour
         {
             buttonUi.isFusion = isFusion;
         }
+
+        
     }
     public bool IsCanFuse()
     {
@@ -46,7 +50,20 @@ public class FusionManager : MonoBehaviour
         selectedForFusion.Add(item);
         Debug.Log("Item Dipilih: " + item.itemName);
 
-        
+        for (int i = 0; i < slot.Count; i++)
+        {
+            Debug.Log($"Slot {i} isi: {(slot[i] != null ? "Ada" : "NULL")}");
+            if (i < selectedForFusion.Count)
+            {
+                slot[i].SetItemData(selectedForFusion[i]);
+            }
+            else
+            {
+                slot[i].ClearSlot();
+            }
+        }
+
+
     }
 
     public void FuseItems()
