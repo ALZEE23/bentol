@@ -5,6 +5,8 @@ using UnityEngine;
 public class FusionManager : MonoBehaviour
 {
     public List<PeletItem> selectedForFusion = new List<PeletItem>();
+    public List<FishData> fishDatabase; 
+
     public Animator fusionUiAnimator;
     public int SelectedCount => selectedForFusion.Count;
     public static FusionManager Instance;
@@ -49,17 +51,56 @@ public class FusionManager : MonoBehaviour
 
     public void FuseItems()
     {
-        
-        var fusedItem = new PeletItem();
-        fusedItem.itemName = "Pelet Gabungan";
-        fusedItem.itemID = 99;
+        int id1 = selectedForFusion[0].itemID;
+        int id2 = selectedForFusion[1].itemID;
+
+        FishData matchedFish = null;
+
+        foreach (FishData fish in fishDatabase)
+        {
+            // Cek dua arah: (1,2) sama dengan (2,1)
+            if ((fish.peletID1 == id1 && fish.peletID2 == id2) || (fish.peletID1 == id2 && fish.peletID2 == id1))
+            {
+                matchedFish = fish;
+                break;
+            }
+        }
+
+        if (matchedFish != null)
+        {
+            Debug.Log("Jackpot! Dapat ikan: " + matchedFish.fishName);
+            // Di sini kamu bisa munculin UI hasil ikan atau langsung mancing
+            // Contoh:
+            SpawnIkan(matchedFish.fishName);
+        }
+        else
+        {
+            Debug.Log("Tidak cocok, masuk mode gacha...");
+            string randomFish = GetRandomFish();
+            SpawnIkan(randomFish);
+        }
 
         InventoryManager.Instance.RemoveItem(selectedForFusion[0]);
         InventoryManager.Instance.RemoveItem(selectedForFusion[1]);
-        InventoryManager.Instance.AddItem(fusedItem);
 
         selectedForFusion.Clear();
-        
     }
+
+    private string GetRandomFish()
+    {
+        // Ini cuma contoh gacha simple, nanti bisa kamu bikin kompleks
+        string[] possibleFish = new string[] { "Lele", "Gurame", "Nila", "Patin" };
+        int rand = Random.Range(0, possibleFish.Length);
+        return possibleFish[rand];
+    }
+
+    void SpawnIkan(string fishName)
+    {
+        // Buat animasi, efek, atau logika dapet ikan
+        Debug.Log("Ikan yang didapat: " + fishName);
+    }
+
+
+
 }
 

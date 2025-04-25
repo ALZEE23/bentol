@@ -6,6 +6,7 @@ using UnityEngine;
 public class PeletItem
 {
     public string itemName;
+    public int fishingRate;
     public Sprite icon;
     public int itemID;
 }
