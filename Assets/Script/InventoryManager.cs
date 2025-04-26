@@ -53,7 +53,19 @@ public class InventoryManager : MonoBehaviour
     public void RemoveItem(PeletItem item)
     {
         peletInventory.Remove(item);
-        // update UI di sini
+
+        // Update UI slots
+        for (int i = 0; i < slot.Count; i++)
+        {
+            if (i < peletInventory.Count)
+            {
+                slot[i].SetItemData(peletInventory[i]);
+            }
+            else
+            {
+                slot[i].ClearSlot();
+            }
+        }
     }
 }
 

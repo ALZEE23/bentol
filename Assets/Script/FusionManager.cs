@@ -77,7 +77,7 @@ public class FusionManager : MonoBehaviour
 
         foreach (FishData fish in fishDatabase)
         {
-            // Cek dua arah: (1,2) sama dengan (2,1)
+
             if ((fish.peletID1 == id1 && fish.peletID2 == id2) || (fish.peletID1 == id2 && fish.peletID2 == id1))
             {
                 matchedFish = fish;
@@ -98,20 +98,31 @@ public class FusionManager : MonoBehaviour
         else
         {
             Debug.Log("Tidak cocok, masuk mode gacha...");
-            string randomFish = GetRandomFish();
-            SpawnIkan(randomFish);
+            QuickTimeEvent qte = FindObjectOfType<QuickTimeEvent>();
+            playerAnimator.SetTrigger("dapet_ikan");
+            string randomFishName = GetRandomFish();
+            // Buat FishData baru untuk ikan random
+            FishData randomFish = new FishData();
+            randomFish.fishName = randomFishName;
+            qte.StartQTE(randomFish);
         }
 
-
+        // Remove items dari inventory
         InventoryManager.Instance.RemoveItem(selectedForFusion[0]);
         InventoryManager.Instance.RemoveItem(selectedForFusion[1]);
+
+        // Clear fusion slots
+        foreach (var slotUI in slot)
+        {
+            slotUI.ClearSlot();
+        }
 
         selectedForFusion.Clear();
     }
 
     private string GetRandomFish()
     {
-        // Ini cuma contoh gacha simple, nanti bisa kamu bikin kompleks
+
         string[] possibleFish = new string[] { "Lele", "Gurame", "Nila", "Patin" };
         int rand = Random.Range(0, possibleFish.Length);
         return possibleFish[rand];
@@ -119,7 +130,7 @@ public class FusionManager : MonoBehaviour
 
     void SpawnIkan(string fishName)
     {
-        // Buat animasi, efek, atau logika dapet ikan
+
         Debug.Log("Ikan yang didapat: " + fishName);
     }
 
@@ -144,6 +155,6 @@ public class FusionManager : MonoBehaviour
 
 
 
-}
+    }
 
 }
