@@ -1,26 +1,28 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Renderer))]
 public class OutlineOnHover : MonoBehaviour
 {
-    private Material originalMat;
-    public Material outlineMaterial;
+    public LayerMask hoverMask;
+    private GameObject lastHovered;
 
-    private Renderer rend;
-
-    void Start()
+    void Update()
     {
-        rend = GetComponent<Renderer>();
-        originalMat = rend.material;
-    }
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, hoverMask))
+        {
+            if (hit.collider.gameObject != lastHovered)
+            {
+                if (lastHovered != null)
+                    lastHovered.layer = LayerMask.NameToLayer("Default");
 
-    void OnMouseEnter()
-    {
-        rend.material = outlineMaterial;
-    }
-
-    void OnMouseExit()
-    {
-        rend.material = originalMat;
+                lastHovered = hit.collider.gameObject;
+                lastHovered.layer = LayerMask.NameToLayer("OutlineObject");
+            }
+        }
+        else
+        {
+            if (lastHovered != null)
+                lastHovered.layer = LayerMask.NameToLayer("Default");
+        }
     }
 }

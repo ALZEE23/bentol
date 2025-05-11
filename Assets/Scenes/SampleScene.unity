@@ -1300,7 +1300,7 @@ PrefabInstance:
     - target: {fileID: -415136158766342463, guid: 9311f655202759a8da0e8e8c17f849ea,
         type: 3}
       propertyPath: m_RendererIndex
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -415136158766342463, guid: 9311f655202759a8da0e8e8c17f849ea,
         type: 3}
@@ -1421,6 +1421,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bunga
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754099829737265174, guid: 9311f655202759a8da0e8e8c17f849ea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6762529485108464276, guid: 9311f655202759a8da0e8e8c17f849ea,
         type: 3}
@@ -4400,7 +4405,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 750649188}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f9c98071e458b4b8a3ee52bf5a00266, type: 3}
   m_Name: 
