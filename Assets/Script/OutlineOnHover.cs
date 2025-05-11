@@ -1,18 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Renderer))]
 public class OutlineOnHover : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Material originalMat;
+    public Material outlineMaterial;
+
+    private Renderer rend;
+
     void Start()
     {
-        
+        rend = GetComponent<Renderer>();
+        originalMat = rend.material;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnMouseEnter()
     {
-        
+        rend.material = outlineMaterial;
+    }
+
+    void OnMouseExit()
+    {
+        rend.material = originalMat;
     }
 }

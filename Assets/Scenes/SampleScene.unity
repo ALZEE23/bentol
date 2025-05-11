@@ -1528,6 +1528,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 750649193}
+    - targetCorrespondingSourceObject: {fileID: 6754099829737265174, guid: 9311f655202759a8da0e8e8c17f849ea,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 750649198}
   m_SourcePrefab: {fileID: 100100000, guid: 9311f655202759a8da0e8e8c17f849ea, type: 3}
 --- !u!1 &250025543 stripped
 GameObject:
@@ -4389,6 +4393,19 @@ MonoBehaviour:
     fishingRate: 0
     icon: {fileID: 21300000, guid: 9b6621a7691a7f8bab7d677c4267aeb2, type: 3}
     itemID: 3
+--- !u!114 &750649198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750649188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f9c98071e458b4b8a3ee52bf5a00266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineLayer: 10
 --- !u!1 &772741415
 GameObject:
   m_ObjectHideFlags: 0
