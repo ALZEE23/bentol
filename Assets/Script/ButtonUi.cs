@@ -88,4 +88,16 @@ public class ButtonUi : MonoBehaviour
             isFusion = true;
         }
     }
+
+    public void PlayAnimationBookPanel(){
+        click++;
+        if (click % 2 == 0)
+        {
+            animator.SetBool("isBookPanel", false);
+        }
+        else
+        {
+            animator.SetBool("isBookPanel", true);
+        }
+    }
 }

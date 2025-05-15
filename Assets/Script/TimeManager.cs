@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour
@@ -16,6 +17,8 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private Gradient graddientSunsetToNight;
 
     [SerializeField] private Light globalLight;
+    [SerializeField] private TextMeshProUGUI timeText;
+    [SerializeField] private TextMeshProUGUI dayText;
 
     private int minutes;
 
@@ -33,6 +36,11 @@ public class TimeManager : MonoBehaviour
     { get { return days; } set { days = value; } }
 
     private float tempSecond;
+
+    public void Awake()
+    {
+        UpdateTimeUI();
+    }
 
     public void Update()
     {
@@ -58,6 +66,7 @@ public class TimeManager : MonoBehaviour
             Hours = 0;
             Days++;
         }
+        UpdateTimeUI();
     }
 
     private void OnHoursChange(int value)
@@ -104,6 +113,19 @@ public class TimeManager : MonoBehaviour
             globalLight.color = lightGradient.Evaluate(i / time);
             RenderSettings.fogColor = globalLight.color;
             yield return null;
+        }
+    }
+
+    private void UpdateTimeUI()
+    {
+        if (timeText != null)
+        {
+            timeText.text = $"{Hours:D2}:{Minutes:D2}";
+        }
+
+        if (dayText != null)
+        {
+            dayText.text = $"Day {Days + 1}";
         }
     }
 }

@@ -25,6 +25,7 @@ public class InventoryUi : MonoBehaviour, IPointerClickHandler
         itemData = null;
         isSelected = false;
         image.sprite = defaultSprite;
+        image.color = Color.white;
     }
 
     public void OnPointerClick(PointerEventData eventData)

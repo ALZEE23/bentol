@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class QuickTimeEvent : MonoBehaviour
 {
     public Slider qteSlider;
-    public float fishBasePullSpeed = 0.2f;     
-    public float fishPullIncreaseOverTime = 0.05f; 
-    public float playerPullStrength = 0.1f;     
-    public float targetMin = 0.6f;
-    public float targetMax = 0.8f;
+    public float fishBasePullSpeed = 0.2f;
+    public float fishPullIncreaseOverTime = 0.05f;
+    public float playerPullStrength = 0.1f;
+    public float targetMin = 0.1f;
+    public float targetMax = 1f;
     public GameObject qtePanel;
+    public GameObject qteRing;
     public FishingEvent fishingEvent;
 
     private bool isQteActive = false;
@@ -30,15 +31,15 @@ public class QuickTimeEvent : MonoBehaviour
 
         qteTimer += Time.deltaTime;
 
-       
+
         float currentFishPull = fishBasePullSpeed + (qteTimer * fishPullIncreaseOverTime);
         float fishForce = -currentFishPull * Time.deltaTime;
 
-        
+
         float playerForce = 0f;
         if (Input.mouseScrollDelta.y > 0)
         {
-           
+
             float resistance = Mathf.Pow(1f - qteSlider.value, 2f);
             playerForce = playerPullStrength * resistance;
         }
@@ -46,7 +47,7 @@ public class QuickTimeEvent : MonoBehaviour
         float totalForce = fishForce + playerForce;
         qteSlider.value = Mathf.Clamp01(qteSlider.value + totalForce);
 
-       
+
         if (Input.GetMouseButtonDown(0))
         {
             if (qteSlider.value >= targetMin && qteSlider.value <= targetMax)

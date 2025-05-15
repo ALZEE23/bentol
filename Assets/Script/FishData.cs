@@ -8,5 +8,10 @@ public class FishData
     public string fishName;
     public int peletID1;
     public int peletID2;
+    public GameObject fishPrefab;
+    public int fishID;
+    public GameObject fishCardPrefab;
+    public GameObject fishCardDefaultPrefab;
+    public bool getFish;
 }
 
