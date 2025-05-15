@@ -3,20 +3,28 @@ using UnityEngine;
 public class HoverOutline : MonoBehaviour
 {
     private int defaultLayer;
-    public int outlineLayer = 10; // pastikan kamu buat layer ini di Project Settings > Tags and Layers
+    public int outlineLayer = 10;
+    private Transform[] allChildren;
 
     private void Start()
     {
         defaultLayer = gameObject.layer;
+        allChildren = GetComponentsInChildren<Transform>(true);
     }
 
     private void OnMouseEnter()
     {
-        gameObject.layer = outlineLayer;
+        foreach (Transform child in allChildren)
+        {
+            child.gameObject.layer = outlineLayer;
+        }
     }
 
     private void OnMouseExit()
     {
-        gameObject.layer = defaultLayer;
+        foreach (Transform child in allChildren)
+        {
+            child.gameObject.layer = defaultLayer;
+        }
     }
 }

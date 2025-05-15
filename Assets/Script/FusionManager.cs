@@ -101,17 +101,16 @@ public class FusionManager : MonoBehaviour
             QuickTimeEvent qte = FindObjectOfType<QuickTimeEvent>();
             playerAnimator.SetTrigger("dapet_ikan");
             string randomFishName = GetRandomFish();
-            // Buat FishData baru untuk ikan random
+
             FishData randomFish = new FishData();
             randomFish.fishName = randomFishName;
             qte.StartQTE(randomFish);
         }
 
-        // Remove items dari inventory
         InventoryManager.Instance.RemoveItem(selectedForFusion[0]);
         InventoryManager.Instance.RemoveItem(selectedForFusion[1]);
 
-        // Clear fusion slots
+
         foreach (var slotUI in slot)
         {
             slotUI.ClearSlot();

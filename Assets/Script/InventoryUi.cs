@@ -8,6 +8,7 @@ public class InventoryUi : MonoBehaviour, IPointerClickHandler
 {
     public PeletItem itemData;
     public Image image;
+    public Sprite defaultSprite;
     private bool isSelected = false;
 
     public bool isFusion;
@@ -23,8 +24,7 @@ public class InventoryUi : MonoBehaviour, IPointerClickHandler
     {
         itemData = null;
         isSelected = false;
-        image.color = Color.white;
-        image.sprite = null; 
+        image.sprite = defaultSprite;
     }
 
     public void OnPointerClick(PointerEventData eventData)

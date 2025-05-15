@@ -6,19 +6,17 @@ using UnityEngine.UI;
 public class QuickTimeEvent : MonoBehaviour
 {
     public Slider qteSlider;
-    public float scrollSpeed = 0.1f;
-    public float targetMin = 0.4f;
-    public float targetMax = 0.6f;
+    public float fishBasePullSpeed = 0.2f;     
+    public float fishPullIncreaseOverTime = 0.05f; 
+    public float playerPullStrength = 0.1f;     
+    public float targetMin = 0.6f;
+    public float targetMax = 0.8f;
     public GameObject qtePanel;
     public FishingEvent fishingEvent;
-    public float oscillationSpeed = 3f; 
-    public float oscillationAmount = 1f; 
-    public float stabilizeSpeed = 0.5f; 
 
     private bool isQteActive = false;
-    private FishData currentFish; 
-    private float time;
-    private float targetValue = 0.5f;  
+    private FishData currentFish;
+    private float qteTimer = 0f;
 
     void Start()
     {
@@ -30,33 +28,36 @@ public class QuickTimeEvent : MonoBehaviour
     {
         if (!isQteActive) return;
 
-        
-        time += Time.deltaTime * oscillationSpeed;
-        float oscillation = Mathf.Sin(time) * oscillationAmount;
-        float autoMove = 0.5f + oscillation * 0.5f;
-        
-        
-        float mouseWheel = Input.GetAxis("Mouse ScrollWheel");
-        targetValue = Mathf.Clamp01(targetValue + mouseWheel * stabilizeSpeed);
-        
-        
-        qteSlider.value = Mathf.Lerp(autoMove, targetValue, 0.5f);
+        qteTimer += Time.deltaTime;
 
+       
+        float currentFishPull = fishBasePullSpeed + (qteTimer * fishPullIncreaseOverTime);
+        float fishForce = -currentFishPull * Time.deltaTime;
+
+        
+        float playerForce = 0f;
+        if (Input.mouseScrollDelta.y > 0)
+        {
+           
+            float resistance = Mathf.Pow(1f - qteSlider.value, 2f);
+            playerForce = playerPullStrength * resistance;
+        }
+
+        float totalForce = fishForce + playerForce;
+        qteSlider.value = Mathf.Clamp01(qteSlider.value + totalForce);
+
+       
         if (Input.GetMouseButtonDown(0))
         {
             if (qteSlider.value >= targetMin && qteSlider.value <= targetMax)
             {
                 Debug.Log("QTE SUCCESS!");
-                isQteActive = false;
-                qtePanel.SetActive(false);
-                fishingEvent.FinishFishing(true, currentFish);
+                EndQTE(true);
             }
             else
             {
                 Debug.Log("QTE FAILED!");
-                isQteActive = false;
-                qtePanel.SetActive(false);
-                fishingEvent.FinishFishing(false, currentFish);
+                EndQTE(false);
             }
         }
     }
@@ -67,7 +68,13 @@ public class QuickTimeEvent : MonoBehaviour
         isQteActive = true;
         qtePanel.SetActive(true);
         qteSlider.value = 0.5f;
-        time = 0f; 
+        qteTimer = 0f;
+    }
+
+    private void EndQTE(bool success)
+    {
+        isQteActive = false;
+        qtePanel.SetActive(false);
+        fishingEvent.FinishFishing(success, currentFish);
     }
 }
-

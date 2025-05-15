@@ -17,6 +17,8 @@ public class PeletObject : MonoBehaviour
         bool success = InventoryManager.Instance.AddItem(itemData);
         if (success)
         {
+
+            FindObjectOfType<SpawnManager>().StartRespawnTimer(transform.position);
             Destroy(gameObject);
         }
         else
